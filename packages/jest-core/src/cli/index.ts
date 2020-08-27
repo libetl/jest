@@ -263,7 +263,7 @@ const runWithoutWatch = async (
   filter?: Filter,
 ) => {
   const startRun = async (): Promise<void | null> => {
-    if (!globalConfig.listTests) {
+    if (!globalConfig.listTests && !globalConfig.silent) {
       preRunMessagePrint(outputStream);
     }
     return runJest({

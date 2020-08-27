@@ -32,6 +32,20 @@ test('console printing with --verbose', () => {
   expect(wrap(summary)).toMatchSnapshot();
 });
 
+test('silent flag should not display preRunMessage', () => {
+  const {exitCode, stdout} = runJest('environmentOptions', [
+    '--silent',
+    '--reporters=[]',
+    '--config=' +
+      JSON.stringify({
+        testEnvironment: 'node',
+      }),
+  ]);
+
+  expect(exitCode).toBe(0);
+  expect(stdout.split('\n').length).toBe(0);
+});
+
 test('does not print to console with --silent', () => {
   const {stderr, stdout, exitCode} = runJest('console', [
     // Need to pass --config because console test specifies `verbose: false`
